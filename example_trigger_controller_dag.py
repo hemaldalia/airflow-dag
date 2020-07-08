@@ -27,13 +27,19 @@ from airflow.utils.dates import days_ago
 
 dag = DAG(
     dag_id="example_trigger_controller_dag",
-    default_args={"owner": "airflow", "start_date": days_ago(2)},
+    default_args={"owner": "airflow", "start_date": days_ago(2),'provide_context':True},
     schedule_interval="@once"
+    
 )
+
+
+def tri(context,dag_run_obj):
+    dag_run_obj.payload = {"message": "Hello World"}
+    return dag_run_obj
 
 trigger = TriggerDagRunOperator(
     task_id="test_trigger_dagrun",
     trigger_dag_id="example_trigger_target_dag",  # Ensure this equals the dag_id of the DAG to trigger
-    conf={"message": "Hello World"},
+    python_callable=tri,
     dag=dag,
 )

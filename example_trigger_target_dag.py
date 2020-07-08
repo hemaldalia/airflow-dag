@@ -29,24 +29,25 @@ from airflow.utils.dates import days_ago
 
 dag = DAG(
     dag_id="example_trigger_target_dag",
-    default_args={"start_date": days_ago(2), "owner": "airflow"},
+    default_args={"start_date": days_ago(2), "owner": "airflow",'provide_context': True},
     schedule_interval=None
 )
 
 
-def run_this_func(p1):
+def run_this_func(**kwargs):
     """
     Print the payload "message" passed to the DagRun conf attribute.
 
     :param context: The execution context
     :type context: dict
     """
+    print(kwargs["dag_run"].conf["message"])
     sleep(30)
-    print("Remotely received value of {} for key=message".format(p1))
+    print("Remotely received value of {} for key=message".format(kwargs["dag_run"].conf["message"]))
     sleep(30)
 
 
-run_this = PythonOperator(task_id="run_this", python_callable=run_this_func, op_args=['{{dag_run.conf["message"]}}'],dag=dag)
+run_this = PythonOperator(task_id="run_this", python_callable=run_this_func, dag=dag)
 
 bash_task = BashOperator(
     task_id="bash_task",
