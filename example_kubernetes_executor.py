@@ -35,8 +35,7 @@ def print_stuff():  # noqa: D103
 with DAG(
     dag_id='example_kubernetes_executor',
     default_args=args,
-    schedule_interval=None,
-    tags=['example'],
+    schedule_interval=None
 ) as dag:
 
     affinity = {

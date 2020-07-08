@@ -36,8 +36,7 @@ def dummy(*args, **kwargs):
 with DAG(
     dag_id='example_xcom_args',
     default_args=args,
-    schedule_interval=None,
-    tags=['example']
+    schedule_interval=None
 ) as dag:
     task1 = PythonOperator(
         task_id='task1',
