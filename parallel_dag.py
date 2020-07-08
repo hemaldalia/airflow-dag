@@ -13,29 +13,17 @@ default_args = {
 def process(**kwargs):
     task_params = kwargs['dag_run'].conf['jobId']
     print('DB Job Id {}'.format(task_params))
-    return 'done'
+
 
 with DAG(dag_id='parallel_dag', schedule_interval=None, default_args=default_args, catchup=False) as dag:
 
     task_0 = PythonOperator(task_id='task_0', python_callable=process, provide_context=True)
-
-  # Tasks dynamically generated 
+    # Tasks dynamically generated 
     tasks = [BashOperator(task_id='task_{0}'.format(t), bash_command='sleep 30'.format(t)) for t in range(1, 4)]
-
-    task_4 = KubernetesPodOperator(namespace='default',
-                          image="Python:3.6",
-                          cmds=["Python","-c"],
-                          arguments=["print('hello world')"],
-                          labels={"foo": "bar"},
-                          name="passing-test",
-                          task_id="pod-task_4",
-                          get_logs=True,
-                          dag=dag
-                          )
 
     task_5 = BashOperator(task_id='task_5', bash_command='sleep 30')
 
     task_6 = BashOperator(task_id='task_6', bash_command='echo "pipeline done"')
 
-    task_0 >> tasks >> task_4 >> task_5 >> task_6
+    task_0 >> tasks >> task_5 >> task_6
 
