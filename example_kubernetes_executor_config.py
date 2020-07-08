@@ -21,14 +21,17 @@ This is an example dag for using a Kubernetes Executor Configuration.
 import os
 
 from airflow import DAG
-from airflow.example_dags.libs.helper import print_stuff
-from airflow.operators.python import PythonOperator
+from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 
 default_args = {
     'owner': 'airflow',
     'start_date': days_ago(2)
 }
+
+
+def print_stuff():  # noqa: D103
+    print("annotated!")
 
 with DAG(
     dag_id='example_kubernetes_executor_config',
