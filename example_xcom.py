@@ -47,6 +47,7 @@ def push_by_returning(**kwargs):
 
 def puller(**kwargs):
     """Pull all previously pushed XComs and check if the pushed values match the pulled values."""
+    sleep(30)
     ti = kwargs['task_instance']
 
     # get value_1
@@ -58,7 +59,11 @@ def puller(**kwargs):
     pulled_value_2 = ti.xcom_pull(task_ids='push_by_returning')
     if pulled_value_2 != value_2:
         raise ValueError(f'The two values differ {pulled_value_2} and {value_2}')
-
+    print(value_1)
+    print(value_2)
+    print(pulled_value_1)
+    print(pulled_value_2)
+    sleep(30)
     # get both value_1 and value_2
     pulled_value_1, pulled_value_2 = ti.xcom_pull(key=None, task_ids=['push', 'push_by_returning'])
     if pulled_value_1 != value_1:
