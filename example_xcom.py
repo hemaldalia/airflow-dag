@@ -17,6 +17,7 @@
 # under the License.
 
 """Example DAG demonstrating the usage of XComs."""
+from time import sleep
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
@@ -34,8 +35,9 @@ value_2 = {'a': 'b'}
 
 def push(**kwargs):
     """Pushes an XCom without a specific target"""
+    sleep(30)
     kwargs['ti'].xcom_push(key='value from pusher 1', value=value_1)
-
+    sleep(30)
 
 def push_by_returning(**kwargs):
     """Pushes an XCom without a specific target, just by returning it"""
