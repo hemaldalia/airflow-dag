@@ -31,8 +31,7 @@ default_args = {"start_date": days_ago(1)}
 with models.DAG(
     dag_id="example_complex",
     default_args=default_args,
-    schedule_interval=None,
-    tags=['example'],
+    schedule_interval=None
 ) as dag:
 
     # Create

@@ -33,8 +33,7 @@ args = {
 dag = DAG(
     dag_id='example_branch_operator',
     default_args=args,
-    schedule_interval="@daily",
-    tags=['example']
+    schedule_interval="@daily"
 )
 
 run_this_first = DummyOperator(

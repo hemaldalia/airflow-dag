@@ -33,8 +33,7 @@ dag = DAG(
         "start_date": days_ago(1),
     },
     schedule_interval='*/1 * * * *',
-    dagrun_timeout=timedelta(minutes=4),
-    tags=['example']
+    dagrun_timeout=timedelta(minutes=4)
 )
 
 

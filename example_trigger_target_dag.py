@@ -30,8 +30,7 @@ from airflow.utils.dates import days_ago
 dag = DAG(
     dag_id="example_trigger_target_dag",
     default_args={"start_date": days_ago(2), "owner": "airflow"},
-    schedule_interval=None,
-    tags=['example']
+    schedule_interval=None
 )
 
 

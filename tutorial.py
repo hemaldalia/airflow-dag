@@ -66,8 +66,7 @@ dag = DAG(
     'tutorial',
     default_args=default_args,
     description='A simple tutorial DAG',
-    schedule_interval=timedelta(days=1),
-    tags=['example'],
+    schedule_interval=timedelta(days=1)
 )
 # [END instantiate_dag]
 

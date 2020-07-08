@@ -48,8 +48,7 @@ start_date = datetime.datetime(2015, 1, 1)
 with DAG(
     dag_id="example_external_task_marker_parent",
     start_date=start_date,
-    schedule_interval=None,
-    tags=['example'],
+    schedule_interval=None
 ) as parent_dag:
     # [START howto_operator_external_task_marker]
     parent_task = ExternalTaskMarker(task_id="parent_task",
