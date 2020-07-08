@@ -36,7 +36,7 @@ value_2 = {'a': 'b'}
 def push(**kwargs):
     """Pushes an XCom without a specific target"""
     sleep(30)
-    kwargs['ti'].xcom_push(key='value from pusher 1', value=value_1)
+    kwargs['task_instance'].xcom_push(key='value from pusher 1', value=value_1)
     sleep(30)
 
 def push_by_returning(**kwargs):
@@ -46,7 +46,7 @@ def push_by_returning(**kwargs):
 
 def puller(**kwargs):
     """Pull all previously pushed XComs and check if the pushed values match the pulled values."""
-    ti = kwargs['ti']
+    ti = kwargs['task_instance']
 
     # get value_1
     pulled_value_1 = ti.xcom_pull(key=None, task_ids='push')
