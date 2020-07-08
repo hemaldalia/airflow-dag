@@ -52,7 +52,7 @@ run_this_first >> branching
 
 join = DummyOperator(
     task_id='join',
-    trigger_rule='none_failed_or_skipped',
+    trigger_rule='none_failed',
     dag=dag,
 )
 
