@@ -39,7 +39,7 @@ def getScikitLearnTask(jobid):
     return task
 
 def getPyTorchTask(jobid):
-    task = TriggerDagRunOperator(task_id=task_id='pytorch_{0}'.format(jobid),
+    task = TriggerDagRunOperator(task_id='pytorch_{0}'.format(jobid),
                                     trigger_dag_id="pytorch_dag",
                                     python_callable=payload,
                                     params={'jobId': jobid},
@@ -55,13 +55,10 @@ start = DummyOperator(
 tasks = [];
 
 for j in jobList:
-    to_run = False
-    if j['type']=='scikit':
+     if j['type']=='scikit':
         jobTask = getScikitLearnTask(j['jobId'])
-        to_run = True
-    elif j['type']=='pytorch':
+     elif j['type']=='pytorch':
         jobTask = getPyTorchTask(j['jobId'])
-        to_run = True
 
     start >> jobTask
 
