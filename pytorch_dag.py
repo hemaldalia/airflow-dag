@@ -12,9 +12,9 @@ dag = DAG(
 
 
 def run_this_func(**kwargs):
-    print(kwargs["dag_run"].conf["message"])
+    print(kwargs["dag_run"].conf["jobId"])
     sleep(30)
-    print("Remotely received value of pytorch jobId {}".format(kwargs["dag_run"].conf["message"]))
+    print("Remotely received value of pytorch jobId {}".format(kwargs["dag_run"].conf["jobId"]))
     sleep(15)
 
 
@@ -22,7 +22,7 @@ run_this = PythonOperator(task_id="run_this", python_callable=run_this_func, dag
 
 bash_task = BashOperator(
     task_id="bash_task",
-    bash_command='sleep 60 && echo "Here is the pytorch jobId: $message" && sleep 30',
-    env={'message': '{{ dag_run.conf["message"] if dag_run else "" }}'},
+    bash_command='sleep 60 && echo "Here is the pytorch jobId: $jobId" && sleep 30',
+    env={'jobId': '{{ dag_run.conf["jobId"] if dag_run else "" }}'},
     dag=dag,
 )
