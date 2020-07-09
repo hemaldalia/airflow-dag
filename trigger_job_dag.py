@@ -49,15 +49,6 @@ def getPyTorchTask(jobid):
     return task
 
 
-start = DummyOperator(
-    task_id='start',
-    dag=dag
-)
-
-end = DummyOperator(
-    task_id='end',
-    dag=dag)
-
 tasks = [];
 
 for j in jobList:
@@ -69,7 +60,5 @@ for j in jobList:
         jobTask = getPyTorchTask(j['jobId'])
         to_run = True
 
-    start >> jobTask >> end
+    jobTask
 
-if len(tasks)<1:
-    start >> end
