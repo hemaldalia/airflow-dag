@@ -58,7 +58,7 @@ end = DummyOperator(
     task_id='end',
     dag=dag)
 
-tasks[];
+tasks = [];
 
 for j in jobList:
     to_run = False
