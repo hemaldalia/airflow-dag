@@ -14,11 +14,12 @@ dag = DAG(
 )
 
 jobList = []
-job = {}
+
 modelList = ['scikit','pytorch']
 val = random.randint(1,6);
 if val==5:
     for i in range(1,3):
+        job = {}
         jobid = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(8)])
         job['jobId'] = jobid
         job['type'] = random.choice(modelList)
