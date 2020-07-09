@@ -27,7 +27,6 @@ if val==5:
 
 def payload(context, dag_run_obj):
         dag_run_obj.payload = {'jobId' :context['params']['jobId'] }
-        pp.pprint(dag_run_obj.payload)
         return dag_run_obj
 
 
