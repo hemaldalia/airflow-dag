@@ -69,10 +69,7 @@ for j in jobList:
         jobTask = getPyTorchTask(j['jobId'])
         to_run = True
 
-    if to_run:
-        tasks.append(jobTask)
+    start >> jobTask >> end
 
-if len(tasks)>0:
-    start >> tasks >> end
-else:
+if len(tasks)<1:
     start >> end
