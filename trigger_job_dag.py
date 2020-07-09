@@ -14,7 +14,6 @@ dag = DAG(
 )
 
 jobList = []
-
 modelList = ['scikit','pytorch']
 val = random.randint(1,6);
 if val==5:
@@ -50,6 +49,11 @@ def getPyTorchTask(jobid):
     return task
 
 
+start = DummyOperator(
+    task_id='start',
+    dag=dag
+)
+
 tasks = [];
 
 for j in jobList:
@@ -61,5 +65,5 @@ for j in jobList:
         jobTask = getPyTorchTask(j['jobId'])
         to_run = True
 
-    jobTask
+    start >> jobTask
 
