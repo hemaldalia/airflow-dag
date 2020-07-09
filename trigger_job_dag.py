@@ -31,8 +31,7 @@ def payload(context, dag_run_obj):
 
 
 def getScikitLearnTask(jobid):
-    taskid = 'scikit-learn-'+jobid
-    task = TriggerDagRunOperator(task_id=taskid,
+    task = TriggerDagRunOperator(task_id='scikit_learn_{0}'.format(jobid),
                                     trigger_dag_id="scikit_learn_dag",
                                     python_callable=payload,
                                     params={'jobId': jobid},
@@ -40,8 +39,7 @@ def getScikitLearnTask(jobid):
     return task
 
 def getPyTorchTask(jobid):
-    taskid = 'pytorch-'+jobid
-    task = TriggerDagRunOperator(task_id=taskid,
+    task = TriggerDagRunOperator(task_id=task_id='pytorch_{0}'.format(jobid),
                                     trigger_dag_id="pytorch_dag",
                                     python_callable=payload,
                                     params={'jobId': jobid},
