@@ -59,6 +59,6 @@ for j in jobList:
         jobTask = getScikitLearnTask(j['jobId'])
      elif j['type']=='pytorch':
         jobTask = getPyTorchTask(j['jobId'])
+     start >> jobTask
 
-    start >> jobTask
 
