@@ -31,19 +31,11 @@ def payload(context, dag_run_obj):
 
 
 def getScikitLearnTask(jobid):
-    task = TriggerDagRunOperator(task_id='scikit_learn_{0}'.format(jobid),
-                                    trigger_dag_id="scikit_learn_dag",
-                                    python_callable=payload,
-                                    params={'jobId': jobid},
-                                    dag=dag)
+    
     return task
 
 def getPyTorchTask(jobid):
-    task = TriggerDagRunOperator(task_id='pytorch_{0}'.format(jobid),
-                                    trigger_dag_id="pytorch_dag",
-                                    python_callable=payload,
-                                    params={'jobId': jobid},
-                                    dag=dag)
+    
     return task
 
 
@@ -52,13 +44,25 @@ start = DummyOperator(
     dag=dag
 )
 
-tasks = [];
+tasks = []
 
 for j in jobList:
      if j['type']=='scikit':
-        jobTask = getScikitLearnTask(j['jobId'])
+         jobTask1 = TriggerDagRunOperator(task_id='scikit_learn_{0}'.format(jobid),
+                                    trigger_dag_id="scikit_learn_dag",
+                                    python_callable=payload,
+                                    params={'jobId': jobid},
+                                    dag=dag)
+         tasks.append(jobTask1)
      elif j['type']=='pytorch':
-        jobTask = getPyTorchTask(j['jobId'])
-     start >> jobTask
+         jobTask2 = TriggerDagRunOperator(task_id='pytorch_{0}'.format(jobid),
+                                    trigger_dag_id="pytorch_dag",
+                                    python_callable=payload,
+                                    params={'jobId': jobid},
+                                    dag=dag)
+         tasks.append(jobTask2)        
+
+if len(tasks) > 0:
+     start >> tasks
 
 
