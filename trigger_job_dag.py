@@ -2,6 +2,7 @@ import random
 import string
 from airflow import DAG
 from airflow.operators.dagrun_operator import TriggerDagRunOperator
+from airflow.operators.dummy_operator import DummyOperator
 from airflow.utils.dates import days_ago
 
 
