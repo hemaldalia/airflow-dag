@@ -7,8 +7,8 @@ from airflow.utils.dates import days_ago
 
 dag = DAG(
     dag_id="trigger_job_dag",
-    default_args={"owner": "airflow", "start_date": days_ago(1),  'provide_context':True},
-    catchup: False,
+    default_args={"owner": "airflow", "start_date": days_ago(1),'provide_context':True},
+    catchup=False,
     schedule_interval='*/1 * * * *'    
 )
 
