@@ -20,7 +20,7 @@ val = random.randint(1,6);
 if val==5:
     for i in range(1,3):
         jobid = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(8)])
-        job['jobid'] = jobid
+        job['jobId'] = jobid
         job['type'] = random.choice(modelList)
         jobList.append(job)
 
