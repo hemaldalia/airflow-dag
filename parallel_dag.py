@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
+from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
 from datetime import datetime
 # ADD COMMENT
@@ -24,5 +25,16 @@ with DAG(dag_id='parallel_dag', schedule_interval=None, default_args=default_arg
 
     task_6 = BashOperator(task_id='task_6', bash_command='sleep 60')
 
-    tasks >> task_4 >> task_5 >> task_6
+    passing = KubernetesPodOperator(namespace='default',
+                          image="ubuntu:16.04",
+                          cmds=["bash", "-cx"],
+                          arguments=["echo", "10"],
+                          labels={"foo": "bar"},
+                          name="test",
+                          task_id="task",
+                          dag = dag
+                          )
+
+
+    tasks >> task_4 >> task_5 >> passing>> task_6
         
