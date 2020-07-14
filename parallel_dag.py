@@ -25,14 +25,13 @@ with DAG(dag_id='parallel_dag', schedule_interval=None, default_args=default_arg
 
     task_6 = BashOperator(task_id='task_6', bash_command='sleep 60')
 
-    passing = KubernetesPodOperator(namespace='default',
+    passing = KubernetesPodOperator(namespace='airflow-p-fqc9n',
                           image="ubuntu:16.04",
                           cmds=["bash", "-cx"],
                           arguments=["echo", "10"],
                           labels={"foo": "bar"},
                           name="test",
-                          task_id="task",
-                          dag = dag
+                          task_id="task"
                           )
 
 
