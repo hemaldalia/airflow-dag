@@ -28,7 +28,8 @@ passing = KubernetesPodOperator(namespace='default',
                           labels={"foo": "bar"},
                           name="test",
                           task_id="task",
+                          dag = dag
                           )
 
 
-passing.set_upstream(start)
+start >> passing
