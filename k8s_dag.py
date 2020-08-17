@@ -47,7 +47,7 @@ start = PythonOperator(
 
 risk_processor = KubernetesPodOperator(
     namespace='default',
-    image="eu.gcr.io/starfair/riskprocessor:4.0",
+    image="eu.gcr.io/starfair/riskprocessor:5.0",
     env_vars={ 'JOB_ID': '{{ dag_run.conf.jobId }}', 'GOOGLE_APPLICATION_CREDENTIALS': '/etc/gcp/sa_credentials.json'},
     labels={"task": "risk-processor"},
     name="risk-processor",
